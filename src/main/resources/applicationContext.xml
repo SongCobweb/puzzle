@@ -1,40 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:p="http://www.springframework.org/schema/p"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:task="http://www.springframework.org/schema/task"
-       xsi:schemaLocation="
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/task/spring-aop.xsd"
-	>
-	
-	<!--  自动加载配置文件-->
-	<context:property-placeholder ignore-unresolvable="true" location="classpath:jdbc.properties"/>
-	
-	<!-- task任务扫描注解 -->
-	<task:annotation-driven/>
-	
-	<!-- hibernate -->
-	
-	<!-- jdbcTemplate -->
-	
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd 
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd 
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd 
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/task/spring-aop.xsd">
+
+	<!-- 自动加载配置文件 -->
+	<context:property-placeholder
+		ignore-unresolvable="true" location="classpath:jdbc.properties" />
+
 	<!-- 注解自动扫描，排除@Controller注解 -->
-	
+	<context:component-scan base-package="com.puzzle">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<!-- task任务扫描注解 -->
+	<task:annotation-driven />
+
+	<!-- hibernate -->
+
+	<!-- jdbcTemplate -->
+
+
 	<!-- 数据源 -->
-	
-	<!-- 事务 -->
-	
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close d">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+	<!-- hibernate事务 -->
+
 	<!-- 声明式事务 -->
-	
+
 	<!-- 需要注册的bean -->
-	
-	
-	
+
+
+
 </beans>	
