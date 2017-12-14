@@ -31,11 +31,34 @@
 
 	<!-- 数据源 -->
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
-		init-method="init" destroy-method="close d">
-		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		init-method="init" destroy-method="close">
+		<!-- 还有一个name属性，本项目中忽略，配置这个属性的意义在于，如果存在多个数据源，监控的时候可以通过名字来区分开来。 如果没有配置，将会生成一个名字，格式是："DataSource-" 
+			+ System.identityHashCode(this). driverClassName会根据url自动识别 基本属性 url、user、password -->
+		<!-- <property name="driverClassName" value="${jdbc.driverClassName}" /> -->
 		<property name="url" value="${jdbc.url}" />
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
+		<!-- 配置监控统计拦截的filters -->
+		<property name="filters" value="stat" />
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="maxActive" value="300" />
+		<property name="initialSize" value="10" />
+		<property name="minIdle" value="1" />
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="60000" />
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		<!-- 用来检测连接是否有效的sql，要求是一个查询语句。如果validationQuery为null，testOnBorrow、testOnReturn、testWhileIdle都不会其作用。 -->
+		<property name="validationQuery" value="SELECT 'x'" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 ,PSCache对支持游标的数据库性能提升巨大 如果用Oracle，则把poolPreparedStatements配置为true，mysql可以配置为false。 
+			分库分表较多的数据库，建议配置为false。 -->
+		<property name="poolPreparedStatements" value="true" />
+		<property name="maxOpenPreparedStatements" value="20" />
 	</bean>
 	<!-- hibernate事务 -->
 
