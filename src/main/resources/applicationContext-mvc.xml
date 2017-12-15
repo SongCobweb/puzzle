@@ -6,24 +6,39 @@
        xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/task/spring-mvc.xsd"
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd"
 	>
 	
 	<!-- 加载配置文件 -->
+	<context:property-placeholder ignore-unresolvable="true" location="classpath:application.properties"/>
 	
 	<!-- 扫描控制器注解 -->
+	<context:component-scan base-package="com.puzzle" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
 	
 	<!-- 启用注解驱动 -->
+	<mvc:annotation-driven enable-matrix-variables="true"/>
+	
+	<!-- 视图解析器 -->
 	
 	<!-- 启动静态资源的访问 -->
-	
+	 <!-- 对静态资源文件的访问， 将无法mapping到Controller的path交给default servlet handler处理 -->
+	<mvc:default-servlet-handler/>
 	<!-- 静态资源映射 -->
-	
+	<mvc:resources location="/resources/**" mapping="/resources/">
+		<mvc:cache-control max-age="3600" cache-public="true"/>
+	</mvc:resources>
 	<!-- 无控制器跳转 -->
+	<mvc:view-controller path="/" view-name="index.jsp"/>
 	
 	<!-- 拦截器 -->
 	
 	<!-- 控制文件上传 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="${maxUploadSize}" />
+		<property name="defaultEncoding" value="${defaultEncoding}" />
+	</bean>
 	
 	
 </beans>	
