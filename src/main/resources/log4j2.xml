@@ -1,33 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="INFO" monitorInterval="120">  
-    <properties>  
-        <property name="LOG_HOME">logs/puzzle</property>  
-        <property name="FILE_NAME">puzzle</property>  
-    </properties>  
-    <Appenders>  
-        <Console name="Console" target="SYSTEM_OUT">  
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5p [%F] - %m%n" />  
-        </Console>  
-        <RollingRandomAccessFile name="MyFile"  
-            fileName="${LOG_HOME}/${FILE_NAME}.log"  
-            filePattern="${LOG_HOME}/$${date:yyyy-MM}/${FILE_NAME}_%d{yyyy-MM-dd}_%i.log.gz">  
-            <PatternLayout  
-                pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5p [%F] - %m%n" />  
-                
-            <Policies>  
-                <TimeBasedTriggeringPolicy interval="1" />  
-                <SizeBasedTriggeringPolicy size="2KB" />  
-            </Policies>  
-            <DefaultRolloverStrategy max="20" />  
-        </RollingRandomAccessFile>  
-    </Appenders>  
-  
-    <Loggers>  
-        <Logger name="mylog" level="INFO" additivity="false">  
-            <AppenderRef ref="MyFile" />  
-        </Logger>  
-        <Root level="ERROR">  
-            <AppenderRef ref="Console" />  
-        </Root> 
-    </Loggers>  
+<Configuration status="INFO" monitorInterval="120">
+	<properties>
+		<property name="LOG_HOME">logs/puzzle</property>
+		<property name="FILE_NAME">puzzle</property>
+	</properties>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5p [%F] - %m%n" />
+		</Console>
+		<RollingRandomAccessFile name="MyFile"
+			fileName="${LOG_HOME}/${FILE_NAME}.log"
+			filePattern="${LOG_HOME}/$${date:yyyy-MM}/${FILE_NAME}_%d{yyyy-MM-dd}_%i.log.gz">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5p [%F] - %m%n" />
+
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" />
+				<SizeBasedTriggeringPolicy size="2KB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20" />
+		</RollingRandomAccessFile>
+		<File name="MyFile2" fileName="logs/app.log">
+			<PatternLayout>
+				<Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5p [%F] - %m%n</Pattern>
+			</PatternLayout>
+		</File>
+	</Appenders>
+
+	<Loggers>
+		<Logger name="mylog" level="INFO" additivity="false">
+			<AppenderRef ref="MyFile2" />
+		</Logger>
+		<Root level="ERROR">
+			<AppenderRef ref="Console" />
+		</Root>
+	</Loggers>
 </Configuration>
