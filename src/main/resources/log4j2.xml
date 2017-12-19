@@ -19,19 +19,15 @@
 			</Policies>
 			<DefaultRolloverStrategy max="20" />
 		</RollingRandomAccessFile>
-		<File name="MyFile2" fileName="logs/app.log">
-			<PatternLayout>
-				<Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5p [%F] - %m%n</Pattern>
-			</PatternLayout>
-		</File>
 	</Appenders>
 
 	<Loggers>
 		<Logger name="mylog" level="INFO" additivity="false">
-			<AppenderRef ref="MyFile2" />
+			<AppenderRef ref="MyFile" />
 		</Logger>
 		<Root level="ERROR">
 			<AppenderRef ref="Console" />
+			<AppenderRef ref="MyFile" />
 		</Root>
 	</Loggers>
 </Configuration>
