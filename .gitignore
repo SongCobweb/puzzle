@@ -3,6 +3,7 @@
 
 # Log file
 *.log
+*.log.gz
 
 # BlueJ files
 *.ctxt
@@ -23,6 +24,7 @@ hs_err_pid*
 
 # eclipse
 target/
+logs/
 /.project
 /.classpath
 /.DS_Store
