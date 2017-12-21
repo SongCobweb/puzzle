@@ -47,7 +47,7 @@
 		init-method="init" destroy-method="close">
 		<!-- 还有一个name属性，本项目中忽略，配置这个属性的意义在于，如果存在多个数据源，监控的时候可以通过名字来区分开来。 如果没有配置，将会生成一个名字，格式是："DataSource-" 
 			+ System.identityHashCode(this). driverClassName会根据url自动识别 基本属性 url、user、password -->
-		<!-- <property name="driverClassName" value="${jdbc.driverClassName}" /> -->
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
 		<property name="url" value="${jdbc.url}" />
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
