@@ -7,6 +7,7 @@ public class HelloWorld {
 	protected static Logger logger = LoggerFactory.getLogger(HelloWorld.class);
 
 	public static void main(String[] args) throws InterruptedException {
+		
 		Thread.sleep(1000L);
 		for(int i = 0; i <= 10000; i++){
 			logger.info("before");
