@@ -59,6 +59,8 @@
 		<!-- ci -->
 
 		<!-- json -->
+		<jackson.version>2.9.3</jackson.version>
+		<xstream.version>1.4.10</xstream.version>
 
 
 	</properties>
@@ -305,8 +307,30 @@
 			<version>${spring-data-redis.version}</version>
 		</dependency>
 
-
-
+		<!-- jackson -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-core</artifactId>
+		    <version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-annotations</artifactId>
+		    <version>${jackson.version}</version>
+		</dependency>
+		
+		<!-- xtream start -->
+		<dependency>
+		    <groupId>com.thoughtworks.xstream</groupId>
+		    <artifactId>xstream</artifactId>
+		    <version>${xstream.version}</version>
+		</dependency>
+		
 
 	</dependencies>
 

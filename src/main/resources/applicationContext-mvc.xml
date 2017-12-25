@@ -1,44 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd"
-	>
-	
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
 	<!-- 加载配置文件 -->
-	<context:property-placeholder ignore-unresolvable="true" location="classpath:application.properties"/>
-	
+	<context:property-placeholder
+		ignore-unresolvable="true" location="classpath:application.properties" />
+
 	<!-- 扫描控制器注解 -->
-	<context:component-scan base-package="com.puzzle" use-default-filters="false">
-		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	<context:component-scan base-package="com.puzzle"
+		use-default-filters="false">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
-	
+
 	<!-- 启用注解驱动 -->
-	<mvc:annotation-driven enable-matrix-variables="true"/>
-	
+	<mvc:annotation-driven enable-matrix-variables="true" />
+
 	<!-- 视图解析器 -->
-	
+	<bean
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="contentNegotiationManager">
+			<bean
+				class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+				<property name="ignoreAcceptHeader" value="true" />
+				<property name="defaultContentType" value="text/html" />
+				<property name="mediaTypes">
+					<value>
+						json=application/json
+						xml=application/xml
+					</value>
+				</property>
+			</bean>
+		</property>
+		<property name="viewResolvers">
+			<list>
+				<bean class="org.springframework.web.servlet.view.BeanNameViewResolver" />
+				<bean
+					class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+					<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+					<property name="prefix" value="${prefix}" />
+					<property name="suffix" value="${suffix}" />
+				</bean>
+			</list>
+		</property>
+		<property name="defaultViews">
+			<list>
+				<bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+				<!-- 配置XML视图 -->
+				<bean class="org.springframework.web.servlet.view.xml.MarshallingView">
+					<property name="marshaller">
+						<bean class="org.springframework.oxm.xstream.XStreamMarshaller"></bean>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
 	<!-- 启动静态资源的访问 -->
-	 <!-- 对静态资源文件的访问， 将无法mapping到Controller的path交给default servlet handler处理 -->
-	<mvc:default-servlet-handler/>
+	<!-- 对静态资源文件的访问， 将无法mapping到Controller的path交给default servlet handler处理 -->
+	<mvc:default-servlet-handler />
 	<!-- 静态资源映射 -->
 	<mvc:resources location="/resources/**" mapping="/resources/">
-		<mvc:cache-control max-age="3600" cache-public="true"/>
+		<mvc:cache-control max-age="3600" cache-public="true" />
 	</mvc:resources>
 	<!-- 无控制器跳转 -->
-	<mvc:view-controller path="/" view-name="index.jsp"/>
-	
+	<mvc:view-controller path="/" view-name="index.jsp" />
+
 	<!-- 拦截器 -->
-	
+
 	<!-- 控制文件上传 -->
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="${maxUploadSize}" />
 		<property name="defaultEncoding" value="${defaultEncoding}" />
 	</bean>
-	
-	
+
+
 </beans>	
