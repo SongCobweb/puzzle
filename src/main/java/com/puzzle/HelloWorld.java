@@ -7,10 +7,11 @@ import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
 
 public class HelloWorld {
-	protected static Logger logger = LoggerFactory.getLogger(HelloWorld.class);
+	protected Logger logger = LoggerFactory.getLogger(getClass());
 
 	public static void main(String[] args) throws InterruptedException {
-		
+		HelloWorld helloWorld = new HelloWorld();
+		System.out.println(helloWorld.getClass());
 		
 	}
 	

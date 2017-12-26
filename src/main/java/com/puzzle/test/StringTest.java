@@ -1,6 +1,5 @@
 package com.puzzle.test;
 
-import java.util.regex.Pattern;
 
 public class StringTest {
 
