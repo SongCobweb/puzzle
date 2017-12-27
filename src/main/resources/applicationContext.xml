@@ -82,7 +82,7 @@
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 
 	<!-- 需要注册的bean -->
-
+	<bean id="idGenerator" class="com.puzzle.core.id.WrappedIdGenerator"></bean>
 
 
 </beans>	
