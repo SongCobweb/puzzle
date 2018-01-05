@@ -15,7 +15,7 @@
 
 			<Policies>
 				<TimeBasedTriggeringPolicy interval="1" />
-				<SizeBasedTriggeringPolicy size="2KB" />
+				<SizeBasedTriggeringPolicy size="5MB" />
 			</Policies>
 			<DefaultRolloverStrategy max="20" />
 		</RollingRandomAccessFile>
