@@ -22,10 +22,9 @@ import com.puzzle.core.id.IdGenerator;
  * @author songwenquan
  *
  */
-@Transactional
-public class HibernateGenericDao<T> implements GenericDao<T> {
+public abstract class HibernateGenericDao implements GenericDao {
 	
-	protected Logger logger = LoggerFactory.getLogger(getClass());
+	protected static Logger logger = LoggerFactory.getLogger(HibernateGenericDao.class);
 	
 	/** IdGenerator */
 	private IdGenerator idGenerator;
@@ -88,7 +87,10 @@ public class HibernateGenericDao<T> implements GenericDao<T> {
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
-
+	
+	//---------------------------------------------------//
+	//---------------------------------------------------//
+	//---------------------------------------------------//
 	@Transactional(readOnly = true)
 	@Override
 	public <T> T get(Class<T> entityClass, Serializable id) {
@@ -106,15 +108,13 @@ public class HibernateGenericDao<T> implements GenericDao<T> {
 	@Transactional(readOnly = true)
 	@Override
 	public <T> List<T> getAll(Class<T> entityClass) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getSession().createCriteria(entityClass).list();
 	}
 
 	@Transactional(readOnly = true)
 	@Override
 	public <T> List<T> getAll(Class<T> entityClass, String orderBy,
 			boolean isAsc) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -141,42 +141,59 @@ public class HibernateGenericDao<T> implements GenericDao<T> {
 
 	@Transactional
 	@Override
-	public void removeById(Class<T> entityClass, Serializable id) {
+	public <T> void removeById(Class<T> entityClass, Serializable id) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Transactional
 	@Override
-	public void removeAll(Collection<T> collection) {
+	public <T> void removeAll(Collection<T> collection) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Transactional
 	@Override
-	public void removeAll(Class<T> entityClass) {
+	public <T> void removeAll(Class<T> entityClass) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Transactional(readOnly = true)
 	@Override
-	public Integer count(Class<T> entityClass) {
+	public <T> Integer count(Class<T> entityClass) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Serializable getId(Class<T> entityClass, Object entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setId(Class<T> entityClass, Object entity, Serializable id) {
-		// TODO Auto-generated method stub
+	public <T> Serializable getId(Class<T> entityClass, Object entity) {
+		//通过Class对象获得主键字段名称
 		
+		//获取主键字段的get方法
+		
+		//获取值
+		return null;
+	}
+
+	@Override
+	public <T> void setId(Class<T> entityClass, Object entity, Serializable id) {
+		//通过Class对象获得主键字段名称
+		
+		//获取主键字段的set方法
+		
+		//执行反射方法，设置id值
+	}
+	
+	/**
+	 * 通过传入class对象获取目标对象的主键名称，获取主键字段名称
+	 * @param entityClass
+	 * @return
+	 */
+	public <T> String getIdName(Class<T> entityClass) {
+		
+		return null;
 	}
 
 	@Override

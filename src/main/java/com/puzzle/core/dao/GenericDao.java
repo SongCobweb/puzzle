@@ -13,7 +13,7 @@ import java.util.List;
  * @author songwenquan
  *
  */
-public interface GenericDao<T> {
+public interface GenericDao {
 
 	<T> T get(Class<T> entityClass, Serializable id);
 	
@@ -29,17 +29,17 @@ public interface GenericDao<T> {
 	
 	void remove(Object entity);
 	
-	void removeById(Class<T> entityClass, Serializable id);
+	<T> void removeById(Class<T> entityClass, Serializable id);
 	
-	void removeAll(Collection<T> collection);
+	<T> void removeAll(Collection<T> collection);
 	
-	void removeAll(Class<T> entityClass);
+	<T> void removeAll(Class<T> entityClass);
 	
-	Integer count(Class<T> entityClass);
+	<T> Integer count(Class<T> entityClass);
 	
-	Serializable getId(Class<T> entityClass, Object entity);
+	<T> Serializable getId(Class<T> entityClass, Object entity);
 	
-	void setId(Class<T> entityClass, Object entity, Serializable id);
+	<T> void setId(Class<T> entityClass, Object entity, Serializable id);
 	
 	void flush();
 	
@@ -48,4 +48,17 @@ public interface GenericDao<T> {
 	void evict();
 	
 	void initialize();
+	
+	/**
+	 * Query接口方法（执行HQL语句）
+	 */
+	
+	/**
+	 * SQL查询借口
+	 */
+	
+	/**
+	 * SQL增删改接口，需要声明式事务
+	 */
+	
 }
