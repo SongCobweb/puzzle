@@ -23,6 +23,8 @@ public interface GenericDao {
 	
 	<T> List<T> getAll(Class<T> entityClass, String orderBy, boolean isAsc);
 	
+	Serializable save(Object entity);
+	
 	void insert(Object entity);
 	
 	void update(Object entity);
@@ -45,9 +47,9 @@ public interface GenericDao {
 	
 	void clear();
 	
-	void evict();
+	void evict(Object entity);
 	
-	void initialize();
+	void initialize(Object entity);
 	
 	/**
 	 * Query接口方法（执行HQL语句）
