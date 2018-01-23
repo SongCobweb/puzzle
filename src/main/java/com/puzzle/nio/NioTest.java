@@ -1,9 +1,7 @@
 package com.puzzle.nio;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.RandomAccessFile;
-import java.nio.channels.FileChannel;
+
+import java.nio.ByteBuffer;
 
 import org.junit.*;
 
@@ -11,12 +9,12 @@ public class NioTest {
 
 	@Test
 	public void test1(){
-		String pathname = "D:/000081620170706175632CLQY";
-		try {
-			RandomAccessFile file = new RandomAccessFile(pathname, "rw");
-			FileChannel fileChannel = file.getChannel();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		ByteBuffer buffer = ByteBuffer.allocate(1024);
+		buffer.put((byte)110);
+		buffer.rewind();
+		System.out.println(buffer.position());
+		buffer.put((byte)111);
+		System.out.println(buffer.position());
+		System.out.println(buffer.get(0));
 	}
 }
